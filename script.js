@@ -4,7 +4,7 @@ const playerFactory = (name) => {
 
 
 const Gameboard = (() => {
-    const gameboard = ["x","x","x","o","o","o","o","x","x"];
+    let gameboard = ["x","x","x","o","o","o","o","x","x"];
 
     const setSign = (index , sign) => {
         if(index > gameboard.length) {
@@ -12,7 +12,15 @@ const Gameboard = (() => {
         } 
         gameboard[index] = sign;
     };
-    return {setSign , gameboard};
+
+    const getSign = (index) => {
+        if(index > gameboard.length) {
+            return;
+        } 
+        return gameboard[index];
+    }
+    
+    return {setSign,getSign};
 
 })();
 
@@ -25,8 +33,7 @@ const board = document.querySelector('.Board');
 function addField(index) {
     const field = document.createElement('div');
     field.classList = "field";
-    field.textContent = `${Gameboard.gameboard[index]}`;
-
+    field.textContent = Gameboard.getSign(index);
     board.appendChild(field);
 }
 
@@ -35,5 +42,18 @@ function drawBoard() {
         addField(i);
     }
 }
+function populateBoard() {
+    for(let i=0;i<9;i++) {
 
+        if(i===2)
+        Gameboard.setSign(i,"x");
+        else
+        Gameboard.setSign(i,"o");
+
+    }
+};
+
+
+populateBoard();
 drawBoard();
+

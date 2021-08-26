@@ -20,7 +20,13 @@ const Gameboard = (() => {
         return gameboard[index];
     }
     
-    return {setSign,getSign};
+    const reset = () => {
+        for(let i=0;i<9;i++) {
+            gameboard[i] = "";
+        }
+    }
+
+    return {setSign,getSign ,reset};
 
 })();
 
@@ -66,3 +72,10 @@ for(let i=0;i<9;i++) {
     })
 }
 
+
+const resetBtn = document.getElementById('ResetButton');
+resetBtn.addEventListener('click' , () => {
+    for(let i=0;i<9;i++) {
+            fieldArr[i].textContent = "";
+        }
+});

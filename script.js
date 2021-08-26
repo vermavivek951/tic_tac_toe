@@ -38,24 +38,31 @@ function addField(index) {
     board.appendChild(field);
 }
 
+
 function drawEmptyBoard() {
     for(let i=0;i<9;i++){
         addField(i);
     }
 }
+drawEmptyBoard();
+
+
+const totalFieldList = document.querySelectorAll('.field');
+const fieldArr = Array.from(totalFieldList);
 
 
 function updateBoardElement(index , sign) {
-    const field = document.querySelectorAll('.field');
-    const fieldArr = Array.from(field);
-
+       
     for(let i=0;i<9;i++) {
         if(fieldArr[i].getAttribute("data-key") === `${index}`) {
             fieldArr[i].textContent = `${sign}`;
         }
     }
-}    
+}
 
-
-drawEmptyBoard();
+for(let i=0;i<9;i++) {
+    fieldArr[i].addEventListener('click' , () => {
+        updateBoardElement(i,"x");
+    })
+}
 

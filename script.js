@@ -4,7 +4,7 @@ const playerFactory = (name) => {
 
 
 const Gameboard = (() => {
-    let gameboard = ["x","x","x","o","o","o","o","x","x"];
+    let gameboard = ["","","","","","","","",""];
 
     const setSign = (index , sign) => {
         if(index > gameboard.length) {
@@ -73,7 +73,7 @@ function updateBoardElement(index , sign) {
 
 for(let i=0;i<9;i++) {
     fieldArr[i].addEventListener('click' , () => {
-        updateBoardElement(i,"x");
+        updateBoardElement(i,`${currentSign}`);
     })
 }
 
@@ -82,6 +82,23 @@ const resetBtn = document.getElementById('ResetButton');
 resetBtn.addEventListener('click' , () => {
     for(let i=0;i<9;i++) {
             fieldArr[i].textContent = "";
-            Gameboard.setSign(i , "");
+            Gameboard.reset();
         }
 });
+
+
+//global sign
+let currentSign = "x";
+function changeCurrentSignTo(sign) {
+    currentSign = sign;
+}
+
+const signSelectBtn = document.querySelectorAll('.sign');
+const signSelectArr = Array.from(signSelectBtn);
+
+for(let i=0;i<2;i++) {
+    signSelectArr[i].addEventListener('click' , () => {
+        let sign = signSelectArr[i].textContent;
+        changeCurrentSignTo(`${sign}`);
+    })
+}

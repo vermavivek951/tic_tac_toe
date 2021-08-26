@@ -1,8 +1,15 @@
+.field {
+    border: 2px solid black;
+    width: 90px;
+    height:90px;
+    text-align: center;
+}
+
 .Board {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
 
-    width: 30px;
+    width: 300px;
 }

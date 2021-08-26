@@ -33,27 +33,29 @@ const board = document.querySelector('.Board');
 function addField(index) {
     const field = document.createElement('div');
     field.classList = "field";
-    field.textContent = Gameboard.getSign(index);
+    field.setAttribute('data-key' , `${index}`);
+
     board.appendChild(field);
 }
 
-function drawBoard() {
+function drawEmptyBoard() {
     for(let i=0;i<9;i++){
         addField(i);
     }
 }
-function populateBoard() {
+
+
+function updateBoardElement(index , sign) {
+    const field = document.querySelectorAll('.field');
+    const fieldArr = Array.from(field);
+
     for(let i=0;i<9;i++) {
-
-        if(i===2)
-        Gameboard.setSign(i,"x");
-        else
-        Gameboard.setSign(i,"o");
-
+        if(fieldArr[i].getAttribute("data-key") === `${index}`) {
+            fieldArr[i].textContent = `${sign}`;
+        }
     }
-};
+}    
 
 
-populateBoard();
-drawBoard();
+drawEmptyBoard();
 

@@ -26,7 +26,11 @@ const Gameboard = (() => {
         }
     }
 
-    return {setSign,getSign ,reset};
+    const printGameBoard = () => {
+        return gameboard;
+    }
+
+    return {setSign,getSign ,reset, printGameBoard};
 
 })();
 
@@ -62,6 +66,7 @@ function updateBoardElement(index , sign) {
     for(let i=0;i<9;i++) {
         if(fieldArr[i].getAttribute("data-key") === `${index}`) {
             fieldArr[i].textContent = `${sign}`;
+            Gameboard.setSign(index , sign);
         }
     }
 }
@@ -77,5 +82,6 @@ const resetBtn = document.getElementById('ResetButton');
 resetBtn.addEventListener('click' , () => {
     for(let i=0;i<9;i++) {
             fieldArr[i].textContent = "";
+            Gameboard.setSign(i , "");
         }
 });

@@ -30,7 +30,16 @@ const Gameboard = (() => {
         return gameboard;
     }
 
-    return {setSign,getSign ,reset, printGameBoard};
+    const isIndexOccupied = (index) => {
+        if(gameboard[index] === "")
+        {
+            return false;
+        }
+        else 
+        return true;
+    }
+
+    return {setSign,getSign ,reset, printGameBoard , isIndexOccupied};
 
 })();
 
@@ -73,6 +82,7 @@ function updateBoardElement(index , sign) {
 
 for(let i=0;i<9;i++) {
     fieldArr[i].addEventListener('click' , () => {
+        if(!(Gameboard.isIndexOccupied(i)))
         updateBoardElement(i,`${currentSign}`);
     })
 }

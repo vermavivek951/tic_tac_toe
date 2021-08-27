@@ -39,7 +39,18 @@ const Gameboard = (() => {
         return true;
     }
 
-    return {setSign,getSign ,reset, printGameBoard , isIndexOccupied};
+    const getEmptyIndexes = () => { 
+        let emptyIndexArr = [];
+        for(let i=0;i<9;i++) {
+            if(gameboard[i]==="") {
+                emptyIndexArr.push(i);
+            }
+        }
+
+        return emptyIndexArr;
+    }
+
+    return {setSign,getSign ,reset, printGameBoard , isIndexOccupied , getEmptyIndexes};
 
 })();
 
@@ -83,7 +94,8 @@ function updateBoardElement(index , sign) {
 for(let i=0;i<9;i++) {
     fieldArr[i].addEventListener('click' , () => {
         if(!(Gameboard.isIndexOccupied(i)))
-        updateBoardElement(i,`${currentSign}`);
+        updateBoardElement(i,`${currentSignForPlayer}`);
+        computerPlay();
     })
 }
 
@@ -98,9 +110,16 @@ resetBtn.addEventListener('click' , () => {
 
 
 //global sign
-let currentSign = "x";
+let currentSignForPlayer = "x";
+let currentSignForComputer = "o";
+
 function changeCurrentSignTo(sign) {
-    currentSign = sign;
+    currentSignForPlayer = sign;
+    if(currentSignForPlayer=="x"){
+        currentSignForComputer="o";
+    }
+    else
+    currentSignForComputer="x";
 }
 
 const signSelectBtn = document.querySelectorAll('.sign');
@@ -111,4 +130,17 @@ for(let i=0;i<2;i++) {
         let sign = signSelectArr[i].textContent;
         changeCurrentSignTo(`${sign}`);
     })
+}
+
+
+function computerPlay() {
+    const emptyIndexArr = Gameboard.getEmptyIndexes();
+
+    let randomIndex = Math.floor(Math.random() * emptyIndexArr.length);
+    
+
+    let computerChoice = emptyIndexArr[randomIndex];
+    //console.log({randomIndex , computerChoice , emptyIndexArr});
+
+    updateBoardElement(computerChoice , `${currentSignForComputer}`);
 }

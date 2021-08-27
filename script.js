@@ -96,7 +96,9 @@ for(let i=0;i<9;i++) {
         if(!(Gameboard.isIndexOccupied(i)))
         {
             updateBoardElement(i,`${currentSignForPlayer}`);
+            checkWin(currentSignForPlayer);
             computerPlay();
+            checkWin(currentSignForComputer);
         }
     })
 }
@@ -150,4 +152,23 @@ function computerPlay() {
     //console.log({randomIndex , computerChoice , emptyIndexArr});
 
     updateBoardElement(computerChoice , `${currentSignForComputer}`);
+}
+
+const winningCombinationArr = [
+    [0,1,2] ,
+    [3,4,5] ,
+    [6,7,8] ,
+    [0,3,6] ,
+    [1,4,7] ,
+    [2,5,8] ,
+    [0,4,8] ,
+    [2,4,6]
+]
+
+function checkWin(sign) {
+    winningCombinationArr.forEach((item) => {
+        if(Gameboard.getSign([item[0]]) === `${sign}` && Gameboard.getSign([item[1]]) === `${sign}` && Gameboard.getSign([item[2]]) === `${sign}`) {
+            console.log(`Player with sign ${sign} won`);
+        }
+    });
 }

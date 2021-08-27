@@ -94,18 +94,24 @@ function updateBoardElement(index , sign) {
 for(let i=0;i<9;i++) {
     fieldArr[i].addEventListener('click' , () => {
         if(!(Gameboard.isIndexOccupied(i)))
-        updateBoardElement(i,`${currentSignForPlayer}`);
-        computerPlay();
+        {
+            updateBoardElement(i,`${currentSignForPlayer}`);
+            computerPlay();
+        }
     })
+}
+
+function emptyDOMBoardandGameBoard() {
+    for(let i=0;i<9;i++) {
+        fieldArr[i].textContent = "";
+        Gameboard.reset();
+    }
 }
 
 
 const resetBtn = document.getElementById('ResetButton');
 resetBtn.addEventListener('click' , () => {
-    for(let i=0;i<9;i++) {
-            fieldArr[i].textContent = "";
-            Gameboard.reset();
-        }
+    emptyDOMBoardandGameBoard();
 });
 
 
@@ -129,6 +135,7 @@ for(let i=0;i<2;i++) {
     signSelectArr[i].addEventListener('click' , () => {
         let sign = signSelectArr[i].textContent;
         changeCurrentSignTo(`${sign}`);
+        emptyDOMBoardandGameBoard();
     })
 }
 

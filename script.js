@@ -24,6 +24,8 @@ const Gameboard = (() => {
         for(let i=0;i<9;i++) {
             gameboard[i] = "";
         }
+        gameWon = false;
+        setResult("");
     }
 
     const printGameBoard = () => {
@@ -99,6 +101,8 @@ for(let i=0;i<9;i++) {
             checkWin(currentSignForPlayer);
             computerPlay();
             checkWin(currentSignForComputer);
+
+            checkForTie();
         }
     })
 }
@@ -165,10 +169,32 @@ const winningCombinationArr = [
     [2,4,6]
 ]
 
+let gameWon = false;
+
 function checkWin(sign) {
     winningCombinationArr.forEach((item) => {
         if(Gameboard.getSign([item[0]]) === `${sign}` && Gameboard.getSign([item[1]]) === `${sign}` && Gameboard.getSign([item[2]]) === `${sign}`) {
             console.log(`Player with sign ${sign} won`);
-        }
+            setResult(`Player with sign ${sign} won`);
+            gameWon = true;
+            return;
+        }        
     });
+}
+
+function checkForTie() {
+   const emptyIndexes =  Gameboard.getEmptyIndexes();
+   
+   console.log(emptyIndexes.length);
+   if((emptyIndexes.length === 0) && (gameWon === false)) {
+       console.log(emptyIndexes);
+       console.log("ITS A TIE !!!");
+       setResult("ITS A TIE !!!");
+   }
+}
+
+
+function setResult(resultString) {
+    const resultEle = document.getElementById('Results');
+    resultEle.textContent = resultString;
 }

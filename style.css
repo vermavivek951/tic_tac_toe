@@ -46,7 +46,7 @@
 
 .signSelect {
     position: relative;
-    top:50px;
+    top:20px;
     display: flex;
     flex-direction: column;
     justify-items: center;
@@ -69,4 +69,9 @@
 
 .sign:hover {
     background-color: rgb(168, 89, 89);
+}
+
+#Results {
+    position: relative;
+    top: 50px;
 }
